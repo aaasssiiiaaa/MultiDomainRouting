@@ -4,38 +4,42 @@ import asia.topo.Link;
 import asia.topo.Node;
 import com.alibaba.fastjson.JSONReader;
 import com.alibaba.fastjson.JSONWriter;
+import com.alibaba.fastjson.serializer.IntegerCodec;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by root on 16-4-14.
  * Read topology information from file named topo.xls in root location of this project.
  *
- * sheet type in topo.xls:
- * 1. nodes
- * 2. domain{n}
- * 3. multidomain
  */
 public class ReadTopo {
 
     private static final String fileName = "topo.json";
+    private static MultiDomain multiDomain;
 
+
+    /**
+     * 读取json文件的内容，转换成multidomain对象
+     * @throws Exception
+     */
     public static void readJsonFile() throws Exception{
         FileReader reader = new FileReader(fileName);
         JSONReader jsonReader = new JSONReader(reader);
         Object object = jsonReader.readObject();
-        List<Domain> list = (List<Domain>)object;
-        System.out.print(object.toString());
+        multiDomain = (MultiDomain)object;
     }
 
     /**
-     * generate a List<DomainOb> instance to topo.json
+     * generate a List<DomainOb> instance and write it to topo.json
+     * 默认没有给wavelength赋值
      * @param domainNum number of domains
      * @param nodeNumPerDomain number of node per domain
-     * @param LinkRate the value of linksNum/nodesNum^2
+     * @param LinkRate the value of linksNum/nodesNum^2 这个参数暂时没有用到，因为我发现这种生成拓扑的方式不太合理
      */
     public static void generateJsonFile(int domainNum, int nodeNumPerDomain, int LinkRate) throws Exception{
 //        int addedLinksNum = (nodeNumPerDomain*domainNum)^2*LinkRate/100 - nodeNumPerDomain*(domainNum+1);
@@ -61,8 +65,12 @@ public class ReadTopo {
                 // 新增的点和前一个点相连
                 if(j!=0){
                     Link link = new Link();
-                    link.src = domain.nodes.get(j-1).clone();
-                    link.dst = domain.nodes.get(j).clone();
+                    link.srcSeq = domain.nodes.get(j-1).identifier;
+                    // 度需要加一
+                    domain.nodes.get(j-1).degree++;
+                    link.dstSeq = domain.nodes.get(j).identifier;
+                    // 度需要加一
+                    domain.nodes.get(j).degree++;
                     link.occupiedWavelengthNum = 0;
                     link.weight = Math.random()*100;
                     link.wavelengths = null;
@@ -71,8 +79,10 @@ public class ReadTopo {
             }
             // 首尾相接成环
             Link link = new Link();
-            link.src = domain.nodes.get(nodeNumPerDomain-1).clone();
-            link.dst = domain.nodes.get(0).clone();
+            link.srcSeq = domain.nodes.get(nodeNumPerDomain-1).identifier;
+            domain.nodes.get(nodeNumPerDomain-1).degree++;
+            link.dstSeq = domain.nodes.get(0).identifier;
+            domain.nodes.get(0).degree++;
             link.occupiedWavelengthNum = 0;
             link.weight = Math.random()*100;
             link.wavelengths = null;
@@ -87,8 +97,10 @@ public class ReadTopo {
                 pre = domainNum-1;
             }
             Link interLink = new Link();
-            interLink.src = domainObList.get(pre).nodes.get(nodeNumPerDomain-1).clone();
-            interLink.dst = domainObList.get(k).nodes.get(0).clone();
+            interLink.srcSeq = domainObList.get(pre).nodes.get(nodeNumPerDomain-1).identifier;
+            domainObList.get(pre).nodes.get(nodeNumPerDomain-1).degree++;
+            interLink.dstSeq = domainObList.get(k).nodes.get(0).identifier;
+            domainObList.get(k).nodes.get(0).degree++;
             interLink.weight = Math.random()*100;
             interLink.occupiedWavelengthNum = 0;
             interLink.wavelengths = null;
@@ -102,19 +114,53 @@ public class ReadTopo {
         jsonWriter.close();
     }
 
-    public static void main(String[] args) throws  Exception{
-//        readJsonFile();
-        generateJsonFile(5, 10,-1);
+    /**
+     * 读取完json文件以后，获取拓扑中的节点列表
+     * 节点编号和节点下标完全一致
+     * @return List<Node>
+     */
+    public static List<Node> obtainNode(){
+        List<Node> nodes = new ArrayList<Node>();
+        for(Domain domain : multiDomain.domains){
+            for(Node node : domain.nodes){
+                nodes.add(node.identifier, node);
+            }
+        }
+        return nodes;
+    }
+
+    /**
+     * 读取完json文件以后，获取拓扑中的链路列表，链路列表分为域内链路和域间链路
+     * @return List<Link>
+     */
+    public static List<Link> obtainLink(){
+        List<Link> links = new ArrayList<Link>();
+        for(Domain domain : multiDomain.domains){
+            links.addAll(domain.links);
+        }
+        links.addAll(multiDomain.interDomainLinks);
+        return links;
+    }
+
+
+    public static void main(String[] args) throws Exception{
+        generateJsonFile(3, 5,-1);
     }
 }
 
 
+/**
+ * 一个单域应该具备的内容，不包括跨域链路. 默认没有给wavelength赋值
+ */
 class Domain{
     public int domainSeq;
     public List<Link> links;
     public List<Node> nodes;
 }
 
+/**
+ * 一个多域拓扑应该包含的内容，包括各个单域以及域间链路. 默认没有给wavelength赋值
+ */
 class MultiDomain{
     public List<Domain> domains;
     public List<Link> interDomainLinks;
