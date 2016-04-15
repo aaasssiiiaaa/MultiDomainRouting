@@ -10,16 +10,17 @@ import java.util.List;
 public class SumOccupiedWavelength {
     //全局变量
     public List<Link> edge;
-    public double time;
+    public double num;
 
     //构造函数
-    public SumOccupiedWavelength(double time){
-        this.time=time;  //TODO 还没处理时间问题
+    public SumOccupiedWavelength(int num){
+        this.num = num;
     }
 
     //方法：计算被占用总波长数
-    public int sumNumOccupied() {
+    public double sumNumOccupied() {
         int occupuy = 0;
+        double wavelengthOccupiedRate;
         for (int i = 0; i < edge.size(); i++) {
             for (int j = 1; j <= 80; j++) {
                 if (edge.get(i).wavelengths.get(j).isUsed == true) {
@@ -27,6 +28,7 @@ public class SumOccupiedWavelength {
                 }
             }
         }
-        return occupuy;
+        wavelengthOccupiedRate = occupuy/edge.size()/80;
+        return wavelengthOccupiedRate;
     }
 }

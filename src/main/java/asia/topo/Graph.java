@@ -21,7 +21,7 @@ public class Graph {
     public List<Link> edge;
     public List<Wavelength> wavelength;
     //整体图
-    DefaultDirectedWeightedGraph<Integer, DefaultEdge> g;
+    DefaultDirectedWeightedGraph<Node, AccessEdge> g;
 
     /**
      * 构造函数和方法
@@ -42,9 +42,11 @@ public class Graph {
         }
         //建立节点和边,构整体图g
         for (int i = 0; i < edge.size(); i++) {
-            g.addVertex(edge.get(i).srcSeq);
-            g.addVertex(edge.get(i).dstSeq);
-            g.addEdge(edge.get(i).srcSeq, edge.get(i).dstSeq);
+            Node src = vertex.get(edge.get(i).srcSeq);
+            Node dst = vertex.get(edge.get(i).dstSeq);
+            g.addVertex(src);
+            g.addVertex(dst);
+            g.addEdge(src,dst);
             //g.setEdgeWeight(g.addEdge(edge.get(i).src.name, Links.get(i).dst.name),edge.get(i).weight);
         }
     }
@@ -75,7 +77,7 @@ public class Graph {
     // 抽象图,返回g1抽象图
     public DefaultDirectedWeightedGraph abstractGraph1() {
         //新建抽象空图
-        DefaultDirectedWeightedGraph<Integer, DefaultEdge> g1 = new DefaultDirectedWeightedGraph<Integer, DefaultEdge>(DefaultEdge.class);
+        DefaultDirectedWeightedGraph<Node, AccessEdge> g1 = new DefaultDirectedWeightedGraph<Node, AccessEdge>(AccessEdge.class);
         int domain1=0;
         int domain2=0;
         for (int i = 0; i < edge.size(); i++) {
@@ -90,9 +92,14 @@ public class Graph {
                 }
             }
             if (domain1!=domain2){
-                g1.addVertex(edge.get(i).srcSeq);
-                g1.addVertex(edge.get(i).dstSeq);
-                g1.addEdge(edge.get(i).srcSeq, edge.get(i).dstSeq);
+//                g1.addVertex(edge.get(i).srcSeq);
+//                g1.addVertex(edge.get(i).dstSeq);
+//                g1.addEdge(edge.get(i).srcSeq, edge.get(i).dstSeq);
+                Node src = vertex.get(edge.get(i).srcSeq);
+                Node dst = vertex.get(edge.get(i).dstSeq);
+                g1.addVertex(src);
+                g1.addVertex(dst);
+                g1.addEdge(src,dst);
             }
         }
         return g1;

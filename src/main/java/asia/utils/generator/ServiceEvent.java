@@ -2,6 +2,7 @@ package asia.utils.generator;
 
 /**
  * Created by root on 16-4-15.
+ *
  */
 public class ServiceEvent extends Event implements Cloneable{
 

@@ -78,7 +78,7 @@ public class ServerGenerator extends Generator{
      * generate event queue according to mu, rou, and other vars.
      * @return
      */
-    public List<Event> genEventQueue(){
+    public List<ServiceEvent> genEventQueue(){
         for(int i=0; i<serviceNum; i++){
             genEvent(i);
         }
@@ -103,7 +103,7 @@ public class ServerGenerator extends Generator{
      */
     public static void main(String[] args){
         ServerGenerator generator = new ServerGenerator(20, 0.04,3,100,1,5);
-        List<Event> queue = generator.genEventQueue();
+        List<ServiceEvent> queue = generator.genEventQueue();
         System.out.print(queue.size());
     }
 }

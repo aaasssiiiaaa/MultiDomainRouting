@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Generator {
     public double currentTime=0;
-    public List<Event> eventQueue = new ArrayList<Event>();
+    public List<ServiceEvent> eventQueue = new ArrayList<ServiceEvent>();
 
     /**
      * 生成[a，b)之间的随机整数

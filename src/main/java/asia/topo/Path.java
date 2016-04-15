@@ -1,6 +1,7 @@
 package asia.topo;
 
 import org.jgrapht.GraphPath;
+import org.jgrapht.graph.DefaultEdge;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 //路径的属性特征，每条都要满足
 public class Path {
-    List<GraphPath<Node, Node>> nodes;     //链表，有下一跳
+    List<GraphPath<Node, AccessEdge>> nodes;     //链表，有下一跳
     int wavelengthNum;          //波长数
     //wl id
 }
