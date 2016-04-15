@@ -5,13 +5,13 @@ import java.util.List;
 /**
  * Created by root on 16-4-14.
  */
-//List Linksä¸­åŒ…å«ä»¥ä¸‹æ–¹é¢å†…å®¹ï¼Œå…·ä½“æ•°å€¼ä¸Šé¢ç»™
+//List LinksÖĞ°üº¬ÒÔÏÂ·½ÃæÄÚÈİ£¬¾ßÌåÊıÖµÉÏÃæ¸ø
 public class Link {
-    public int srcSeq;                        //æºç‚¹
-    public int dstSeq;                        //å®¿ç‚¹
-    public double weight;                   //æƒé‡
+    public int srcSeq;                        //Ô´µã
+    public int dstSeq;                        //ËŞµã
+    public double weight;                   //È¨ÖØ
     public int occupiedWavelengthNum;
-    public List<Wavelength> wavelengths;    //80ä¸ªæ³¢é•¿
+    public List<Wavelength> wavelengths;    //80¸ö²¨³¤
 
     @Override
     public boolean equals(Object o) {
