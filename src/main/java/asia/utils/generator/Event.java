@@ -15,6 +15,14 @@ public class Event {
         return arriveTime+holdTime;
     }
 
+    public double obtainHappenTime(){
+        if(eventType==EventType.SERVICE_END){
+            return obtainEndTime();
+        }else {
+            return arriveTime;
+        }
+    }
+
     public Event() {
     }
 

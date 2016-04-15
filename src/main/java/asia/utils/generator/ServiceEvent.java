@@ -3,7 +3,7 @@ package asia.utils.generator;
 /**
  * Created by root on 16-4-15.
  */
-public class ServiceEvent extends Event{
+public class ServiceEvent extends Event implements Cloneable{
 
     private int src;
     private int dst;
@@ -44,5 +44,18 @@ public class ServiceEvent extends Event{
         this.src = src;
         this.dst = dst;
         this.requiredWaveNum = requiredWaveNum;
+    }
+
+
+    /**
+     * clone method override class Object.
+     * @return
+     * @throws CloneNotSupportedException
+     */
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        ServiceEvent serviceEvent = new ServiceEvent(getEventType(), getEventId(),
+                getArriveTime(),getHoldTime(), src,dst,requiredWaveNum);
+        return serviceEvent;
     }
 }
