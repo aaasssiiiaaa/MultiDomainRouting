@@ -1,10 +1,10 @@
 package asia.topo;
 
-//List Nodesä¸­åŒ…å«ä»¥ä¸‹æ–¹é¢å†…å®¹
+//List NodesÖĞ°üº¬ÒÔÏÂ·½ÃæÄÚÈİ
 public class Node implements Cloneable{
-    public int identifier;                       //èŠ‚ç‚¹å‘½å
-    public int domain;                        //èŠ‚ç‚¹æ‰€åœ¨çš„åŸŸ
-    public int degree;                        //èŠ‚ç‚¹çš„åº¦ï¼ˆä¸€ä¸ªèŠ‚ç‚¹æ‰€è¿è¾¹çš„ä¸ªæ•°ï¼‰
+    public int identifier;                       //½ÚµãÃüÃû
+    public int domain;                        //½ÚµãËùÔÚµÄÓò
+    public int degree;                        //½ÚµãµÄ¶È£¨Ò»¸ö½ÚµãËùÁ¬±ßµÄ¸öÊı£©
 
     @Override
     public Node clone() throws CloneNotSupportedException {

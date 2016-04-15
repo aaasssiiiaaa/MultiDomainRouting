@@ -5,12 +5,12 @@ import org.jgrapht.GraphPath;
 import java.util.List;
 
 /**
- * å±žæ€§åŒºåŸŸï¼šPathã€Linkã€Wavelengthã€Node
- * å±žæ€§å¯ä»¥æ˜¯åŸºæœ¬å®šä¹‰ï¼Œä¹Ÿå¯ä»¥æ˜¯æ–¹æ³•ã€‚åªè¦å±žäºŽè¿™ä¸€ç±»ï¼Œå…¶ä¸­çš„å®šä¹‰å’Œæ–¹æ³•éƒ½å…·å¤‡ã€‚
+ * ÊôÐÔÇøÓò£ºPath¡¢Link¡¢Wavelength¡¢Node
+ * ÊôÐÔ¿ÉÒÔÊÇ»ù±¾¶¨Òå£¬Ò²¿ÉÒÔÊÇ·½·¨¡£Ö»ÒªÊôÓÚÕâÒ»Àà£¬ÆäÖÐµÄ¶¨ÒåºÍ·½·¨¶¼¾ß±¸¡£
  */
-//è·¯å¾„çš„å±žæ€§ç‰¹å¾ï¼Œæ¯æ¡éƒ½è¦æ»¡è¶³
+//Â·¾¶µÄÊôÐÔÌØÕ÷£¬Ã¿Ìõ¶¼ÒªÂú×ã
 public class Path {
-    List<GraphPath<Node, Node>> nodes;     //é“¾è¡¨ï¼Œæœ‰ä¸‹ä¸€è·³
-    int wavelengthNum;          //æ³¢é•¿æ•°
+    List<GraphPath<Node, Node>> nodes;     //Á´±í£¬ÓÐÏÂÒ»Ìø
+    int wavelengthNum;          //²¨³¤Êý
     //wl id
 }
