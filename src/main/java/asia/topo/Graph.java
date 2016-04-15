@@ -26,28 +26,26 @@ public class Graph {
     /**
      * 构造函数和方法
      **/
-    //构造函数(和类名一致)（初始化图拓扑和波长资源）
+    //构造函数(和类名一致)——作用是初始化全局变量（初始化图拓扑和波长资源）
     public Graph(List<Node> Nodes, List<Link> Links) {
         //初始化节点信息
         vertex = Nodes;
         //初始化链路信息,包含了波长和带宽
         edge = Links;
+        //初始化wavelength
+        for (int i =0;i<edge.size();i++) {
+            for (int j = 1; j <= 80; j++) {
+                wavelength.get(j).bandwidth = 3;
+                wavelength.get(j).isUsed = false;
+                wavelength.get(j).waveidentifier = j;
+            }
+        }
         //建立节点和边,构整体图g
         for (int i = 0; i < edge.size(); i++) {
             g.addVertex(edge.get(i).srcSeq);
             g.addVertex(edge.get(i).dstSeq);
             g.addEdge(edge.get(i).srcSeq, edge.get(i).dstSeq);
             //g.setEdgeWeight(g.addEdge(edge.get(i).src.name, Links.get(i).dst.name),edge.get(i).weight);
-        }
-        //判断点与边是否对应
-        System.out.println("节点和链路是否匹配：" + isMatchVertexEdge());
-        //初始化wavelength
-        for (int i =0;i<edge.size();i++){
-            for (int j=1;j<=80;j++){
-                edge.get(i).wavelengths.get(j).bandwidth=3;
-                edge.get(i).wavelengths.get(j).isUsed=false;
-                edge.get(i).wavelengths.get(j).waveidentifier=j;
-            }
         }
     }
 
@@ -74,7 +72,7 @@ public class Graph {
         } else return false;
     }
 
-    // 抽象图,返回g1抽象图  //TODO  感觉不对只是判断了不同域直连的情况
+    // 抽象图,返回g1抽象图
     public DefaultDirectedWeightedGraph abstractGraph1() {
         //新建抽象空图
         DefaultDirectedWeightedGraph<Integer, DefaultEdge> g1 = new DefaultDirectedWeightedGraph<Integer, DefaultEdge>(DefaultEdge.class);
