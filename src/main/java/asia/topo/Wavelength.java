@@ -3,9 +3,9 @@ package asia.topo;
 /**
  * Created by root on 16-4-14.
  */
-//List Wavelengthä¸­åŒ…å«ä»¥ä¸‹æ–¹é¢å†…å®¹ï¼Œå…·ä½“æ•°å€¼ä¸Šé¢ç»™
+//List WavelengthÖĞ°üº¬ÒÔÏÂ·½ÃæÄÚÈİ£¬¾ßÌåÊıÖµÉÏÃæ¸ø
 public class Wavelength {
-    double bandwidth;               //æ³¢é•¿çš„å¸¦å®½
-    boolean isUsed;                   //æ³¢é•¿æ˜¯å¦å ç”¨
-    int waveidentifier;                 //æ¯ä¸ªæ³¢é•¿çš„ç¼–å·
+    double bandwidth;               //²¨³¤µÄ´ø¿í
+    boolean isUsed;                   //²¨³¤ÊÇ·ñÕ¼ÓÃ
+    int waveidentifier;                 //Ã¿¸ö²¨³¤µÄ±àºÅ
 }
