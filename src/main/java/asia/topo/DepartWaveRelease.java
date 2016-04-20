@@ -11,8 +11,9 @@ public class DepartWaveRelease {
     public List<Link> edge;
 
     //构造函数——初始化全局变量
-    public DepartWaveRelease(int eventID,List<Link> Links){
+    public  (int eventID,List<Link> Links){
         serviceID=eventID;
+        edge=Links;
     }
 
     //释放波长资源

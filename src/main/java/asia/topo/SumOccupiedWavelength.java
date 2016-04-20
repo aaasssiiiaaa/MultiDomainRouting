@@ -13,22 +13,23 @@ public class SumOccupiedWavelength {
     public double num;
 
     //构造函数
-    public SumOccupiedWavelength(int num){
+    public SumOccupiedWavelength(int num, List<Link> links){
         this.num = num;
+        edge = links;
     }
 
     //方法：计算被占用总波长数
     public double sumNumOccupied() {
-        int occupuy = 0;
+        double occupuy = 0;
         double wavelengthOccupiedRate;
         for (int i = 0; i < edge.size(); i++) {
             for (int j = 1; j <= 80; j++) {
-                if (edge.get(i).wavelengths.get(j).isUsed == true) {
+                if (edge.get(i).wavelengths.get(j).isUsed ) {
                     occupuy = occupuy + 1;
                 }
             }
         }
-        wavelengthOccupiedRate = occupuy/edge.size()/80;
+        wavelengthOccupiedRate = occupuy/edge.size()/80.0;
         return wavelengthOccupiedRate;
     }
 }

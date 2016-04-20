@@ -19,7 +19,7 @@ public class Graph {
      */
     public List<Node> vertex;          //List名为vertex，它的内容是Node类的几个属性,全局变量
     public List<Link> edge;
-    public List<Wavelength> wavelength;
+    public List<Wavelength> wavelength = new ArrayList<Wavelength>(81);
     //整体图
     DefaultDirectedWeightedGraph<Node, AccessEdge> g;
 
@@ -32,15 +32,22 @@ public class Graph {
         vertex = Nodes;
         //初始化链路信息,包含了波长和带宽
         edge = Links;
+
         //初始化wavelength
         for (int i =0;i<edge.size();i++) {
-            for (int j = 1; j <= 80; j++) {
-                wavelength.get(j).bandwidth = 3;
-                wavelength.get(j).isUsed = false;
-                wavelength.get(j).waveidentifier = j;
+            edge.get(i).wavelengths = new ArrayList<Wavelength>(81);
+//            edge.get(i).wavelengths.add(new Wavelength());
+            for (int j = 0; j <= 80; j++) {
+                Wavelength wv = new Wavelength();
+                wv.bandwidth = 3;
+                wv.isUsed = false;
+                wv.waveidentifier = j;
+//                System.out.println(j);
+                edge.get(i).wavelengths.add(j, wv);
             }
         }
         //建立节点和边,构整体图g
+        g = new DefaultDirectedWeightedGraph<Node, AccessEdge>(AccessEdge.class);
         for (int i = 0; i < edge.size(); i++) {
             Node src = vertex.get(edge.get(i).srcSeq);
             Node dst = vertex.get(edge.get(i).dstSeq);
@@ -52,6 +59,7 @@ public class Graph {
     }
 
     //check节点和链路是否对应,取出一条边的源目节点name，看是否（name）属于节点List
+    // TODO
     public boolean isMatchVertexEdge() {
         int x = 0;
         int y = 0;

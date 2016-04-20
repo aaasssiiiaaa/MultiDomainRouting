@@ -1,5 +1,6 @@
 package asia.topo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class Link {
     public int dstSeq;                        //宿点
     public double weight;                   //权重
     public int occupiedWavelengthNum;
-    public List<Wavelength> wavelengths;    //80个波长
+    public List<Wavelength> wavelengths =new ArrayList<Wavelength>(81);    //80个波长
 
     @Override
     public boolean equals(Object o) {

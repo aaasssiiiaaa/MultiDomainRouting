@@ -34,6 +34,10 @@ public class ReadTopo {
         multiDomain = (MultiDomain)object;
     }
 
+    public static void setMultiDomain(MultiDomain mu){
+        multiDomain = mu;
+    }
+
     /**
      * generate a List<DomainOb> instance and write it to topo.json
      * 默认没有给wavelength赋值
@@ -41,7 +45,7 @@ public class ReadTopo {
      * @param nodeNumPerDomain number of node per domain
      * @param LinkRate the value of linksNum/nodesNum^2 这个参数暂时没有用到，因为我发现这种生成拓扑的方式不太合理
      */
-    public static void generateJsonFile(int domainNum, int nodeNumPerDomain, int LinkRate) throws Exception{
+    public static MultiDomain generateJsonFile(int domainNum, int nodeNumPerDomain, int LinkRate) throws Exception{
 //        int addedLinksNum = (nodeNumPerDomain*domainNum)^2*LinkRate/100 - nodeNumPerDomain*(domainNum+1);
         MultiDomain multiDomain = new MultiDomain();
         List<Domain> domainObList = new ArrayList<Domain>(domainNum);
@@ -112,6 +116,7 @@ public class ReadTopo {
         JSONWriter jsonWriter = new JSONWriter(fileWriter);
         jsonWriter.writeObject(multiDomain);
         jsonWriter.close();
+        return multiDomain;
     }
 
     /**

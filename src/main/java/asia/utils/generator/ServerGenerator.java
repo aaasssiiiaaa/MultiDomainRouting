@@ -61,7 +61,8 @@ public class ServerGenerator extends Generator{
      * @return
      */
     private int genRandomWaveNum(int min, int max){
-        return genRandomInt(min, max);
+        int m = genRandomInt(min, max);
+        return m;
     }
 
     /**
